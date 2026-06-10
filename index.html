@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Bem-Estar — Massoterapia & Estética</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bege-claro:   #FAF6F0;
+      --bege-base:    #F2EAE0;
+      --bege-fendi:   #D9CABB;
+      --terroso-claro:#B8A48A;
+      --terroso-medio:#8B7355;
+      --terroso-escuro:#4A3728;
+      --dourado:      #C9A84C;
+      --dourado-suave:#E8D5A3;
+      --branco:       #FDFAF7;
+
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'Inter', sans-serif;
+
+      --radius:       2px;
+      --transition:   0.35s ease;
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bege-claro);
+      color: var(--terroso-escuro);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── UTILITÁRIOS ────────────────────────────────────────────── */
+    .container {
+      width: 90%;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+    .gold-line {
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: var(--dourado);
+      margin: 0 auto 1.5rem;
+    }
+    .section-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--terroso-escuro);
+    }
+    .section-title em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 0;
+      transition: background var(--transition), padding var(--transition);
+    }
+    .nav.scrolled {
+      background: rgba(250, 246, 240, 0.96);
+      backdrop-filter: blur(8px);
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--bege-fendi);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--terroso-escuro);
+    }
+    .nav__logo span {
+      color: var(--dourado);
+    }
+    .nav__links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: var(--terroso-medio);
+      transition: color var(--transition);
+    }
+    .nav__links a:hover { color: var(--terroso-escuro); }
+    .nav__cta {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid var(--dourado);
+      color: var(--dourado);
+      transition: background var(--transition), color var(--transition);
+    }
+    .nav__cta:hover {
+      background: var(--dourado);
+      color: var(--branco);
+    }
+    /* hamburger */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav__burger span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--terroso-escuro);
+      transition: all 0.3s;
+    }
+    .nav__burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* mobile menu */
+    .nav__mobile {
+      display: none;
+      flex-direction: column;
+      background: var(--bege-claro);
+      border-top: 1px solid var(--bege-fendi);
+      padding: 1.5rem 5%;
+      gap: 1.25rem;
+    }
+    .nav__mobile.open { display: flex; }
+    .nav__mobile a {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terroso-medio);
+    }
+    .nav__mobile .nav__cta {
+      align-self: flex-start;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--bege-base);
+    }
+    /* golden thread — the signature element */
+    .hero__thread {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero__thread svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.18;
+    }
+    .hero__thread path {
+      stroke: var(--dourado);
+      stroke-width: 1;
+      fill: none;
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: drawThread 3.5s ease forwards 0.5s;
+    }
+    @keyframes drawThread {
+      to { stroke-dashoffset: 0; }
+    }
+    /* decorative circle */
+    .hero__circle {
+      position: absolute;
+      right: -10vw;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55vw;
+      max-width: 700px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, var(--bege-fendi) 0%, transparent 70%);
+      opacity: 0.6;
+    }
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      padding: 8rem 0 5rem;
+    }
+    .hero__kicker {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.3s;
+    }
+    .hero__kicker::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--dourado);
+    }
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--terroso-escuro);
+      max-width: 680px;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.55s;
+    }
+    .hero__headline em {
+      font-style: italic;
+      color: var(--terroso-medio);
+    }
+    .hero__sub {
+      margin-top: 1.75rem;
+      font-size: 0.9rem;
+      color: var(--terroso-medio);
+      max-width: 420px;
+      line-height: 1.75;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.75s;
+    }
+    .hero__actions {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.9s;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--terroso-escuro);
+      color: var(--bege-claro);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: background var(--transition);
+    }
+    .btn-primary:hover { background: var(--terroso-medio); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terroso-medio);
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    .btn-ghost::after {
+      content: '→';
+      transition: transform var(--transition);
+    }
+    .btn-ghost:hover { color: var(--terroso-escuro); }
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SOBRE ──────────────────────────────────────────────────── */
+    .sobre {
+      padding: 7rem 0;
+      background: var(--branco);
+    }
+    .sobre__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .sobre__img-wrap {
+      position: relative;
+    }
+    .sobre__img-box {
+      aspect-ratio: 4/5;
+      background: var(--bege-base);
+      position: relative;
+      overflow: hidden;
+    }
+    .sobre__img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+      color: var(--terroso-claro);
+    }
+    .sobre__img-placeholder svg {
+      width: 48px;
+      opacity: 0.4;
+    }
+    .sobre__img-placeholder p {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+    .sobre__frame {
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: calc(100% - 32px);
+      height: calc(100% - 32px);
+      border: 1px solid var(--dourado-suave);
+      pointer-events: none;
+    }
+    .sobre__text { padding-right: 1rem; }
+    .sobre__text p {
+      font-size: 0.9rem;
+      color: var(--terroso-medio);
+      line-height: 1.85;
+      font-weight: 300;
+      margin-top: 1.5rem;
+    }
+    .sobre__text p + p { margin-top: 1rem; }
+    .sobre__stats {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 2.5rem;
+    }
+    .stat__num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--terroso-escuro);
+    }
+    .stat__num span {
+      font-size: 1.2rem;
+      color: var(--dourado);
+    }
+    .stat__label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terroso-claro);
+      margin-top: 0.3rem;
+    }
+
+    /* ── SERVIÇOS ───────────────────────────────────────────────── */
+    .servicos {
+      padding: 7rem 0;
+      background: var(--bege-claro);
+    }
+    .servicos__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .servicos__header .section-title {
+      margin-top: 0.5rem;
+    }
+    .servicos__header p {
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      color: var(--terroso-claro);
+      font-weight: 300;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .servicos__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── CARD ───────────────────────────────────────────────────── */
+    .card {
+      background: var(--branco);
+      border: 1px solid var(--bege-fendi);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: box-shadow var(--transition), border-color var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--dourado);
+      transition: width 0.4s ease;
+    }
+    .card:hover { border-color: var(--dourado-suave); box-shadow: 0 8px 40px rgba(74,55,40,0.07); }
+    .card:hover::before { width: 100%; }
+    .card__icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 1.5rem;
+      color: var(--dourado);
+    }
+    .card__tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terroso-claro);
+      margin-bottom: 0.5rem;
+    }
+    .card__name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--terroso-escuro);
+    }
+    .card__name em { font-style: italic; font-weight: 300; }
+    .card__desc {
+      margin-top: 0.85rem;
+      font-size: 0.82rem;
+      color: var(--terroso-claro);
+      line-height: 1.75;
+      font-weight: 300;
+      flex: 1;
+    }
+    /* duration selector */
+    .card__duration {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .duration-btn {
+      flex: 1;
+      padding: 0.55rem 0;
+      border: 1px solid var(--bege-fendi);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--terroso-medio);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .duration-btn.active {
+      border-color: var(--terroso-escuro);
+      background: var(--terroso-escuro);
+      color: var(--bege-claro);
+    }
+    .duration-btn:hover:not(.active) {
+      border-color: var(--terroso-claro);
+    }
+    /* price */
+    .card__footer {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--bege-fendi);
+    }
+    .card__price {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--terroso-escuro);
+    }
+    .card__price .price-suffix {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: var(--terroso-claro);
+      margin-left: 4px;
+    }
+    .card__reserve {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
+      background: var(--terroso-escuro);
+      color: var(--bege-claro);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background var(--transition);
+      text-decoration: none;
+    }
+    .card__reserve:hover { background: var(--terroso-medio); }
+    .card__reserve svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* voucher card */
+    .card--voucher {
+      background: linear-gradient(135deg, var(--terroso-escuro) 0%, #6B4F38 100%);
+      border-color: transparent;
+      grid-column: 1 / -1;
+    }
+    @media (min-width: 768px) {
+      .card--voucher {
+        grid-column: span 2;
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+      }
+      .card--voucher .card__content { flex: 1; }
+    }
+    .card--voucher .card__tag { color: var(--dourado-suave); opacity: 0.7; }
+    .card--voucher .card__name { color: var(--bege-claro); }
+    .card--voucher .card__desc { color: var(--bege-fendi); }
+    .card--voucher .card__footer {
+      border-top-color: rgba(255,255,255,0.12);
+      margin-top: 0;
+      padding-top: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .card--voucher .card__footer {
+        align-items: flex-end;
+      }
+    }
+    .card--voucher .card__price { color: var(--dourado-suave); }
+    .card--voucher .card__reserve {
+      background: var(--dourado);
+      color: var(--terroso-escuro);
+    }
+    .card--voucher .card__reserve:hover { background: var(--dourado-suave); }
+    .card--voucher::before { background: var(--dourado); }
+    .card--voucher .card__icon { color: var(--dourado); }
+    .voucher__badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--dourado);
+      color: var(--dourado);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    /* ── MODAL ──────────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(74, 55, 40, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--branco);
+      max-width: 520px;
+      width: 100%;
+      padding: 2.5rem;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.35s ease;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal__close {
+      position: absolute;
+      top: 1.25rem; right: 1.25rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--terroso-claro);
+      font-size: 1.25rem;
+      line-height: 1;
+      padding: 4px;
+      transition: color var(--transition);
+    }
+    .modal__close:hover { color: var(--terroso-escuro); }
+    .modal__eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dourado);
+      margin-bottom: 0.5rem;
+    }
+    .modal__title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      line-height: 1.15;
+    }
+    .modal__title em { font-style: italic; }
+    .modal__desc {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--terroso-medio);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .modal__benefits {
+      margin-top: 1.5rem;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .modal__benefits li {
+      font-size: 0.8rem;
+      color: var(--terroso-medio);
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+    .modal__benefits li::before {
+      content: '—';
+      color: var(--dourado);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .modal__separator { height: 1px; background: var(--bege-fendi); margin: 1.75rem 0; }
+    .modal__duration-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terroso-claro);
+      margin-bottom: 0.75rem;
+    }
+    .modal__duration {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .modal__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .modal__price-block .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terroso-claro);
+    }
+    .modal__price-block .value {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 300;
+      line-height: 1;
+      margin-top: 0.15rem;
+    }
+    .modal__whats {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      background: #25D366;
+      color: #fff;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-family: var(--font-body);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition);
+    }
+    .modal__whats:hover { background: #1ebe5d; }
+    .modal__whats svg { width: 16px; height: 16px; }
+
+    /* ── DEPOIMENTOS ────────────────────────────────────────────── */
+    .depoimentos {
+      padding: 7rem 0;
+      background: var(--bege-base);
+    }
+    .depoimentos__header { text-align: center; margin-bottom: 4rem; }
+    .depoimentos__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .depo {
+      background: var(--branco);
+      border: 1px solid var(--bege-fendi);
+      padding: 2rem;
+    }
+    .depo__stars {
+      color: var(--dourado);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 1rem;
+    }
+    .depo__text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.65;
+      color: var(--terroso-medio);
+    }
+    .depo__author {
+      margin-top: 1.25rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terroso-claro);
+    }
+
+    /* ── CTA FINAL ──────────────────────────────────────────────── */
+    .cta-final {
+      padding: 7rem 0;
+      background: var(--terroso-escuro);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-final__bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 120%, rgba(201,168,76,0.15) 0%, transparent 60%);
+    }
+    .cta-final__inner { position: relative; z-index: 2; }
+    .cta-final .gold-line { margin-bottom: 1.5rem; }
+    .cta-final__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300;
+      color: var(--bege-claro);
+      line-height: 1.15;
+    }
+    .cta-final__title em { font-style: italic; color: var(--dourado-suave); }
+    .cta-final__sub {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--bege-fendi);
+      font-weight: 300;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.75;
+    }
+    .cta-final__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 2.5rem;
+      padding: 1rem 2.5rem;
+      background: var(--dourado);
+      color: var(--terroso-escuro);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-family: var(--font-body);
+      transition: background var(--transition);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .cta-final__btn:hover { background: var(--dourado-suave); }
+    .cta-final__btn svg { width: 16px; }
+
+    /* ── FOOTER ─────────────────────────────────────────────────── */
+    footer {
+      background: #2E1F15;
+      padding: 3rem 0 2rem;
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--bege-fendi);
+    }
+    .footer__logo span { color: var(--dourado); }
+    .footer__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .footer__links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terroso-claro);
+      transition: color var(--transition);
+    }
+    .footer__links a:hover { color: var(--bege-fendi); }
+    .footer__copy {
+      width: 100%;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.68rem;
+      color: var(--terroso-medio);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SCROLL REVEAL ──────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .sobre__inner { grid-template-columns: 1fr; gap: 3rem; }
+      .sobre__img-wrap { max-width: 400px; }
+    }
+    @media (max-width: 768px) {
+      .nav__links, .nav__cta { display: none; }
+      .nav__burger { display: flex; }
+    }
+    @media (max-width: 500px) {
+      .card--voucher { flex-direction: column; }
+      .hero__actions { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ───────────────────────────────────────────────── -->
+  <nav class="nav" id="navbar">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="#" class="nav__logo">Studio <span>&</span> Bem-Estar</a>
+        <ul class="nav__links">
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+        </ul>
+        <a href="#servicos" class="nav__cta">Reservar</a>
+        <button class="nav__burger" id="burger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav__mobile" id="mobileMenu">
+      <a href="#servicos" onclick="closeMobile()">Serviços</a>
+      <a href="#sobre" onclick="closeMobile()">Sobre</a>
+      <a href="#depoimentos" onclick="closeMobile()">Depoimentos</a>
+      <a href="#servicos" class="nav__cta" onclick="closeMobile()">Reservar</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__thread">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path d="M-50,450 C200,200 400,650 700,350 C900,150 1100,600 1490,300" />
+        <path d="M-50,500 C300,700 500,250 800,450 C1000,600 1200,200 1490,400" />
+      </svg>
+    </div>
+    <div class="hero__circle"></div>
+    <div class="container">
+      <div class="hero__inner">
+        <p class="hero__kicker">Massoterapia &amp; Estética</p>
+        <h1 class="hero__headline">
+          O cuidado que<br><em>o seu corpo</em><br>merece.
+        </h1>
+        <p class="hero__sub">
+          Rituais terapêuticos pensados para restaurar o equilíbrio, aliviar tensões e renovar a sua energia — em um ambiente de acolhimento e tranquilidade.
+        </p>
+        <div class="hero__actions">
+          <a href="#servicos" class="btn-primary">Conhecer os serviços</a>
+          <a href="#sobre" class="btn-ghost">Sobre a terapeuta</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SOBRE ─────────────────────────────────────────────────── -->
+  <section class="sobre" id="sobre">
+    <div class="container">
+      <div class="sobre__inner">
+        <div class="sobre__img-wrap reveal">
+          <div class="sobre__img-box">
+            <!-- Substitua pela foto real:  -->
+            <img src="massoterapeuta_perfil.jpeg" alt="Terapeuta" style="width:100%;height:100%;object-fit:cover;">
+            <div class="sobre__img-placeholder">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1">
+                <circle cx="24" cy="16" r="8"/>
+                <path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16"/>
+              </svg>
+              <p>Adicione sua foto aqui</p>
+            </div>
+          </div>
+          <div class="sobre__frame"></div>
+        </div>
+        <div class="sobre__text reveal">
+          <span class="section-eyebrow">Quem sou eu</span>
+          <h2 class="section-title">Cuidar é<br><em>minha vocação</em></h2>
+          <p>Sou terapeuta holística com especialização em massoterapia e estética integrativa. Minha missão é proporcionar experiências que vão além do tratamento físico — promovendo bem-estar profundo para corpo e mente.</p>
+          <p>Cada sessão é planejada de forma individual, respeitando as necessidades únicas de cada pessoa. Utilizo técnicas reconhecidas internacionalmente, aliadas a produtos naturais de alta qualidade.</p>
+          <div class="sobre__stats">
+            <div>
+              <div class="stat__num">8<span>+</span></div>
+              <div class="stat__label">Anos de experiência</div>
+            </div>
+            <div>
+              <div class="stat__num">500<span>+</span></div>
+              <div class="stat__label">Clientes atendidas</div>
+            </div>
+            <div>
+              <div class="stat__num">6<span></span></div>
+              <div class="stat__label">Especializações</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVIÇOS ──────────────────────────────────────────────── -->
+  <section class="servicos" id="servicos">
+    <div class="container">
+      <div class="servicos__header reveal">
+        <span class="section-eyebrow">Nossos rituais</span>
+        <h2 class="section-title">Serviços &amp; <em>Tratamentos</em></h2>
+        <p>Escolha o ritual que mais combina com o que você precisa hoje.</p>
+      </div>
+      <div class="servicos__grid" id="gridServicos">
+        <!-- Cards injetados via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DEPOIMENTOS ───────────────────────────────────────────── -->
+  <section class="depoimentos" id="depoimentos">
+    <div class="container">
+      <div class="depoimentos__header reveal">
+        <span class="gold-line"></span>
+        <span class="section-eyebrow">O que dizem</span>
+        <h2 class="section-title"><em>Experiências</em> reais</h2>
+      </div>
+      <div class="depoimentos__grid">
+        <div class="depo reveal">
+          <div class="depo__stars">★★★★★</div>
+          <p class="depo__text">"A massagem de liberação miofascial mudou minha qualidade de vida. Sair dali renovada é o mínimo que posso dizer."</p>
+          <p class="depo__author">— Ana Paula R.</p>
+        </div>
+        <div class="depo reveal">
+          <div class="depo__stars">★★★★★</div>
+          <p class="depo__text">"Ambiente acolhedor, atendimento personalizado. A drenagem linfática resolveu meu inchaço em poucas sessões."</p>
+          <p class="depo__author">— Fernanda M.</p>
+        </div>
+        <div class="depo reveal">
+          <div class="depo__stars">★★★★★</div>
+          <p class="depo__text">"O spa dos pés foi um presente para mim mesma e recomendo para todas. Saí completamente revigorada e relaxada."</p>
+          <p class="depo__author">— Carla S.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA FINAL ─────────────────────────────────────────────── -->
+  <section class="cta-final">
+    <div class="cta-final__bg"></div>
+    <div class="container">
+      <div class="cta-final__inner reveal">
+        <span class="gold-line"></span>
+        <h2 class="cta-final__title">Pronta para se<br><em>reconectar consigo?</em></h2>
+        <p class="cta-final__sub">Agende sua sessão pelo WhatsApp. Respondemos com carinho e agilidade.</p>
+        <a href="https://wa.me/5521999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20sessão." class="cta-final__btn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.847L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.645-.514-5.157-1.41l-.369-.22-3.758.895.953-3.65-.24-.378A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Agendar via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__logo">Studio <span>&</span> Bem-Estar</div>
+        <ul class="footer__links">
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="https://instagram.com/debbarcelos/" target="_blank">Instagram</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">© 2025 Studio &amp; Bem-Estar — Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ── MODAL ─────────────────────────────────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modal">
+      <button class="modal__close" id="modalClose" aria-label="Fechar">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ── SCRIPTS ───────────────────────────────────────────────── -->
+  <script>
+    /* ──────────────────────────────────────────────────────────
+       DADOS DOS SERVIÇOS
+       Atualize: precos, whatsapp, descrições, benefícios
+    ────────────────────────────────────────────────────────── */
+    const WHATSAPP = '5521979612303'; // ← coloque o número com DDI + DDD
+
+    const servicos = [
+      {
+        id: 'relaxante',
+        tag: 'Massoterapia',
+        name: ['Massagem', 'Relaxante'],
+        desc: 'Técnica suave que alivia tensões musculares e promove relaxamento profundo do corpo e da mente.',
+        beneficios: [
+          'Alívio do estresse e ansiedade',
+          'Relaxamento muscular profundo',
+          'Melhora da qualidade do sono',
+          'Estimulação da circulação',
+        ],
+        durations: true,
+        precos: { 60: 'R$ 150', 90: 'R$ 200' },
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4c-1.5 0-3 .5-4 1.5S6 8 6 9.5c0 3 2.5 5.5 5.5 5.5h1c3 0 5.5-2.5 5.5-5.5C18 7 16.5 4 14 4h-2z"/><path d="M6 9.5C4.5 10 3 11 3 13c0 3 3 5 6 5"/><path d="M18 9.5c1.5.5 3 1.5 3 3.5 0 3-3 5-6 5"/></svg>`,
+      },
+      {
+        id: 'miofascial',
+        tag: 'Massoterapia',
+        name: ['Liberação', 'Miofascial'],
+        desc: 'Técnica especializada que atua nas fáscias musculares, restaurando a mobilidade e aliviando dores crônicas.',
+        beneficios: [
+          'Redução de dores crônicas',
+          'Aumento da mobilidade e flexibilidade',
+          'Dissolução de pontos de tensão profunda',
+          'Reequilíbrio postural',
+        ],
+        durations: false,
+        preco: 'R$ 220',
+        duracao: '60 min',
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M4 12c0-4 3-7 8-7M4 12c0 4 3 7 8 7M20 12c0-4-3-7-8-7M20 12c0 4-3 7-8 7"/><circle cx="12" cy="12" r="2"/></svg>`,
+      },
+      {
+        id: 'drenagem',
+        tag: 'Estética',
+        name: ['Drenagem', 'Linfática'],
+        desc: 'Manobras suaves que estimulam o sistema linfático, reduzindo retenção de líquidos e promovendo leveza.',
+        beneficios: [
+          'Redução de inchaço e retenção de líquidos',
+          'Estímulo à imunidade',
+          'Melhora da aparência da pele',
+          'Sensação de leveza imediata',
+        ],
+        durations: true,
+        precos: { 60: 'R$ 160', 90: 'R$ 210' },
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c0 6-6 8-6 13a6 6 0 0 0 12 0c0-5-6-7-6-13z"/><path d="M8 17c0 2.2 1.8 4 4 4"/></svg>`,
+      },
+      {
+        id: 'spa-pes',
+        tag: 'Spa & Ritual',
+        name: ['Spa', 'dos Pés'],
+        desc: 'Ritual completo de cuidado com os pés: esfoliação, hidratação, massagem reflexológica e finalização.',
+        beneficios: [
+          'Hidratação profunda',
+          'Esfoliação e renovação da pele',
+          'Reflexologia relaxante',
+          'Finalização com óleo nutritivo',
+        ],
+        durations: false,
+        preco: 'R$ 130',
+        duracao: '50 min',
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 18c0 2 1.5 4 4 4s4-2 4-4"/><path d="M7 10c-.5-2 0-4 1-5.5C9.5 3 11 2 12 2c1 0 2.5 1 4 2.5C17 6 17.5 8 17 10c-.5 2-2 4-5 5-3-1-4.5-3-5-5z"/></svg>`,
+      },
+    ];
+
+    const voucher = {
+      id: 'voucher',
+      tag: 'Presente especial',
+      name: ['Vale', 'Mini Spa'],
+      desc: 'Presenteie alguém especial com uma experiência de cuidado e bem-estar. O voucher inclui uma sessão à escolha da beneficiária, válido por 6 meses.',
+      beneficios: [
+        'À escolha da beneficiária',
+        'Válido por 6 meses a partir da compra',
+        'Enviado por WhatsApp ou impresso',
+        'Embalagem presenteável disponível',
+      ],
+      preco: 'A partir de R$ 130',
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-4 0v2M8 7V5a2 2 0 0 0-4 0v2M2 12h20"/></svg>`,
+    };
+
+    /* ── Gerar cards ─────────────────────────────────────────── */
+    function buildCard(s, isVoucher = false) {
+      const card = document.createElement('div');
+      card.className = `card reveal${isVoucher ? ' card--voucher' : ''}`;
+
+      const selectedDuration = { value: 60 };
+
+      let durationHTML = '';
+      if (s.durations) {
+        durationHTML = `<div class="card__duration">
+          <button class="duration-btn active" data-min="60">60 min</button>
+          <button class="duration-btn" data-min="90">90 min</button>
+        </div>`;
+      }
+
+      const priceDisplay = s.durations
+        ? `<span class="card__price" id="price-${s.id}">${s.precos[60]}<span class="price-suffix">/ sessão</span></span>`
+        : `<span class="card__price">${s.preco}${s.duracao ? `<span class="price-suffix">${s.duracao}</span>` : ''}</span>`;
+
+      const badgeHTML = isVoucher ? `<span class="voucher__badge">Presente ideal</span>` : '';
+
+      const content = `
+        <div class="card__content">
+          <div class="card__icon">${s.icon}</div>
+          ${badgeHTML}
+          <p class="card__tag">${s.tag}</p>
+          <h3 class="card__name">${s.name[0]} <em>${s.name[1]}</em></h3>
+          <p class="card__desc">${s.desc}</p>
+          ${durationHTML}
+        </div>
+        <div class="card__footer">
+          ${priceDisplay}
+          <button class="card__reserve">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.847L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.645-.514-5.157-1.41l-.369-.22-3.758.895.953-3.65-.24-.378A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Reservar
+          </button>
+        </div>
+      `;
+      card.innerHTML = content;
+
+      // Duration buttons
+      if (s.durations) {
+        card.querySelectorAll('.duration-btn').forEach(btn => {
+          btn.addEventListener('click', e => {
+            card.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const min = parseInt(btn.dataset.min);
+            selectedDuration.value = min;
+            const priceEl = card.querySelector(`#price-${s.id}`);
+            if (priceEl) priceEl.innerHTML = `${s.precos[min]}<span class="price-suffix">/ sessão</span>`;
+          });
+        });
+      }
+
+      // Reserve button → modal
+      card.querySelector('.card__reserve').addEventListener('click', () => {
+        openModal(s, isVoucher ? null : selectedDuration.value);
+      });
+
+      return card;
+    }
+
+    /* ── Renderizar grid ─────────────────────────────────────── */
+    const grid = document.getElementById('gridServicos');
+    servicos.forEach(s => grid.appendChild(buildCard(s)));
+    grid.appendChild(buildCard(voucher, true));
+
+    /* ── Modal ───────────────────────────────────────────────── */
+    const overlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+
+    function openModal(s, duration) {
+      const preco = s.durations ? s.precos[duration || 60] : s.preco;
+      const duracaoLabel = s.durations ? (duration || 60) + ' min' : (s.duracao || '');
+      const nomeFull = s.name[0] + ' ' + s.name[1];
+
+      let durationSelector = '';
+      let currentDuration = duration || 60;
+
+      if (s.durations) {
+        durationSelector = `
+          <p class="modal__duration-label">Duração da sessão</p>
+          <div class="modal__duration" id="modalDuration">
+            <button class="duration-btn ${currentDuration === 60 ? 'active' : ''}" data-min="60">60 min</button>
+            <button class="duration-btn ${currentDuration === 90 ? 'active' : ''}" data-min="90">90 min</button>
+          </div>`;
+      }
+
+      const beneficiosHTML = s.beneficios.map(b => `<li>${b}</li>`).join('');
+
+      modalContent.innerHTML = `
+        <p class="modal__eyebrow">${s.tag}</p>
+        <h2 class="modal__title" id="modalTitle">${s.name[0]} <em>${s.name[1]}</em></h2>
+        <p class="modal__desc">${s.desc}</p>
+        <ul class="modal__benefits">${beneficiosHTML}</ul>
+        <div class="modal__separator"></div>
+        ${durationSelector}
+        <div class="modal__footer">
+          <div class="modal__price-block">
+            <p class="label">Valor da sessão</p>
+            <p class="value" id="modalPreco">${preco}</p>
+          </div>
+          <a class="modal__whats" id="modalWhats" href="${buildWhatsLink(nomeFull, s.durations ? currentDuration : duracaoLabel)}" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.522 5.847L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.645-.514-5.157-1.41l-.369-.22-3.758.895.953-3.65-.24-.378A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Reservar pelo WhatsApp
+          </a>
+        </div>`;
+
+      // Duration switch inside modal
+      if (s.durations) {
+        modalContent.querySelectorAll('.duration-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            modalContent.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const min = parseInt(btn.dataset.min);
+            document.getElementById('modalPreco').textContent = s.precos[min];
+            document.getElementById('modalWhats').href = buildWhatsLink(nomeFull, min);
+          });
+        });
+      }
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function buildWhatsLink(nome, duracao) {
+      const d = typeof duracao === 'number' ? duracao + ' min' : duracao;
+      const msg = `Olá! Gostaria de agendar uma sessão de *${nome}* (${d}). Poderia me informar os horários disponíveis?`;
+      return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ── Navbar scroll ───────────────────────────────────────── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    /* ── Mobile menu ─────────────────────────────────────────── */
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    function closeMobile() {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
+    /* ── Scroll reveal ───────────────────────────────────────── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
